@@ -1,0 +1,77 @@
+DROP DATABASE IF EXISTS eagles;
+CREATE DATABASE eagles;
+
+-- select the database
+USE eagles;
+
+-- create the tables
+CREATE TABLE Team
+(
+  TeamYR        DATE            PRIMARY KEY
+  
+);
+
+CREATE TABLE Offense
+(
+  TmOffense     DATE       PRIMARY KEY,
+  PassingYDs    INT        NOT NULL,
+  PassingTDs    INT        NOT NULL,
+  INTs          INT        NOT NULL,
+  Sacked        INT        NOT NULL,
+  TeamYR        DATE       NOT NULL,
+  CONSTRAINT Offense_fk_Team	
+	FOREIGN KEY(TeamYR)
+    REFERENCES Team (TeamYR)
+);
+
+CREATE TABLE Defense
+(
+  TmDefense                     DATE           PRIMARY KEY,
+  PassDef                       INT            NOT NULL,
+  RushDef                       INT            NOT NULL,
+  DINTs                         INT            NOT NULL,
+  Sacks                         INT            NOT NULL,
+  DefTDs                        INT            NOT NULL,
+  TeamYR                        DATE           NOT NULL,
+ CONSTRAINT Defense_fk_Team	
+	FOREIGN KEY(TeamYR)
+    REFERENCES Team (TeamYR)
+  
+);
+
+CREATE TABLE SpecialTeams
+(
+  TmSpecial             DATE           PRIMARY KEY,
+  FGM                   INT            NOT NULL,
+  FGP                   INT            NOT NULL,
+  XPM                   INT            NOT NULL,
+  XPpct                 INT            NOT NULL,
+  TeamYR                DATE           NOT NULL,
+  CONSTRAINT SpecialTeams_fk_Team	
+	FOREIGN KEY(TeamYR)
+    REFERENCES Team (TeamYR)
+);
+
+CREATE TABLE PlayerPool
+(
+  PlayerID                INT            Primary KEY,
+  PFname                  varchar(15)    NOT NULL,
+  PLname                  varchar(15)    NOT NULL,
+  Position                char(2)        NOT NULL
+);
+
+CREATE TABLE Leaders
+(
+TmLeaders       DATE       Primary Key,
+PlayerID        INT        NOT NULL,
+Stats           INT        NOT NULL,
+TeamYR          DATE       NOT NULL,
+
+CONSTRAINT Leaders_fk_Team	
+	FOREIGN KEY(TeamYR)
+    REFERENCES Team (TeamYR),
+    
+CONSTRAINT Leaders_fk_Player	
+	FOREIGN KEY(PlayerID)
+    REFERENCES PlayerPool (PlayerID)
+);
