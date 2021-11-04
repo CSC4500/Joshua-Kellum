@@ -1,0 +1,205 @@
+DROP DATABASE IF EXISTS eagles;
+CREATE DATABASE eagles;
+
+-- select the database
+USE eagles;
+
+-- create the tables
+CREATE TABLE Team
+(
+  TeamYR        DATE            PRIMARY KEY
+  
+);
+INSERT INTO Team (TeamYR) Values
+(2000),
+(2001),
+(2002),
+(2003),
+(2004),
+(2005),
+(2006),
+(2007),
+(2008),
+(2009),
+(2010),
+(2011),
+(2012),
+(2013),
+(2014),
+(2015),
+(2016),
+(2017),
+(2018),
+(2019),
+(2020);
+CREATE TABLE Offense
+(
+  TmOffense     INT       PRIMARY KEY,
+  PassingYDs    INT        NOT NULL,
+  PassingTDs    INT        NOT NULL,
+  INTs          INT        NOT NULL,
+  Sacked        INT        NOT NULL,
+  TeamYR        DATE       NOT NULL,
+  CONSTRAINT Offense_fk_Team	
+	FOREIGN KEY(TeamYR)
+    REFERENCES Team (TeamYR)
+);
+insert into Offense (TmOffense, PassingYDs, PassingTDs, INTs,
+Sacked, TeamYR) values 
+(1,	5560,	49,	28,	13,	2002),
+(2,	1322,	27,	15,	26,	1989),
+(3,	2248,	35,	26,	28,	2011),
+(4,	5812,	33,	5,	22,	1999),
+(5,	3895,	16,	2,	69,	1987),
+(6,	1625,	32,	2,	0,	1995),
+(7,	5882,	17,	14,	18,	1997),
+(8,	2410,	38,	27,	4,	1995),
+(9,	2084,	51,	20,	30,	2011),
+(10, 1120,	32,	20,	38,	1995),
+(11, 4254,	43,	8,	17,	1994),
+(12	,2662,	41,	23,	34,	2007),
+(13	,3456,	50,	2,	34,	1989),
+(14	,2177,	13,	14,	46,	2001),
+(15	,4834,	49,	8,	61,	2008),
+(16	,2036,	15,	4,	62,	2008),
+(17	,970,	34,	32,	2,	1988),
+(18	,1803,	4,	19,	3,	2009),
+(19	,637,	14,	30,	5,	1992),
+(20	,2264,	53,	23,	49,	1993);
+CREATE TABLE Defense
+(
+  TmDefense                     INT           PRIMARY KEY,
+  PassDef                       INT            NOT NULL,
+  RushDef                       INT            NOT NULL,
+  DINTs                         INT            NOT NULL,
+  Sacks                         INT            NOT NULL,
+  DefTDs                        INT            NOT NULL,
+  TeamYR                        DATE           NOT NULL,
+ CONSTRAINT Defense_fk_Team	
+	FOREIGN KEY(TeamYR)
+    REFERENCES Team (TeamYR)
+  
+);
+insert into Defense (TmDefense, PassDef, RushDef, DINTs,
+Sacks, DefTDs, TeamYR) values 
+(1,	5560,	49,	28,	13,	2, 2002),
+(2,	1322,	27,	15,	26,	1, 1989),
+(3,	2248,	35,	26,	28,	4, 2011),
+(4,	5812,	33,	5,	22,	5, 1999),
+(5,	3895,	16,	2,	69,	6, 1987),
+(6,	1625,	32,	2,	0,	7, 1995),
+(7,	5882,	17,	14,	18,	0, 1997),
+(8,	2410,	38,	27,	4,	10, 1995),
+(9,	2084,	51,	20,	30,	2, 2011),
+(10, 1120,	32,	20,	38,	3, 1995),
+(11, 4254,	43,	8,	17,	3, 1994),
+(12	,2662,	41,	23,	34,	7, 2007),
+(13	,3456,	50,	2,	34,	1, 1989),
+(14	,2177,	13,	14,	46,	0, 2001),
+(15	,4834,	49,	8,	61,	4, 2008),
+(16	,2036,	15,	4,	62,	2, 2008),
+(17	,970,	34,	32,	2,	3, 1988),
+(18	,1803,	4,	19,	3,	1, 2009),
+(19	,637,	14,	30,	5,	1, 1992),
+(20	,2264,	53,	23,	49,	9, 1993);
+
+CREATE TABLE SpecialTeams
+(
+  TmSpecial             INT           PRIMARY KEY,
+  FGM                   INT            NOT NULL,
+  FGP                   INT            NOT NULL,
+  XPM                   INT            NOT NULL,
+  XPpct                 INT            NOT NULL,
+  TeamYR                DATE           NOT NULL,
+  CONSTRAINT SpecialTeams_fk_Team	
+	FOREIGN KEY(TeamYR)
+    REFERENCES Team (TeamYR)
+);
+insert into SpecialTeams (TmSpecial, FGM, FGP, XPM,
+XPpct, TeamYR) values 
+(1,	19,	0,	26,	66,	2006),
+(2,	53,	32,	20,	53,	1989),
+(3,	15,	25,	44,	32,	2006),
+(4,	28,	38,	52,	66,	1998),
+(5,	16, 53,	41,	60,	1991),
+(6,	32,	60,	19,	49,	2001),
+(7,	57,	59,	12,	44,	1986),
+(8,	47,	41,	47,	4,	1994),
+(9,	43,	36,	18,	54,	2011),
+(10,31,	59,	80,	48,	2003),
+(11	,57	,23,25	,14	,2011),
+(12	,47	,3	,15	,53	,1989),
+(13	,25	,31	,0	,5	,2006),
+(14	,33	,5	,23	,68	,1990),
+(15	,20	,57	,22	,53	,2003),
+(16	,0	,11	,29	,34	,1986),
+(17	,5	,14	,8	,33	,2009),
+(18	,59	,1	,20	,22	,2010),
+(19	,55	,60	,64	,3	,2012),
+(20	,43	,1	,49	,2	,1996);
+CREATE TABLE PlayerPool
+(
+  PlayerID                INT            Primary KEY,
+  PFname                  varchar(15)    NOT NULL,
+  PLname                  varchar(15)    NOT NULL,
+  Position                char(2)        NOT NULL
+);
+insert into PlayerPool (PlayerID, PFname, PLname, position)
+values
+(1,	'Bronny',	'Johnys',	'OA'),
+(2,	'Emile',	'Grotty',	'NV'),
+(3,	'Audie',	'Jzhakov',	'TP'),
+(4,	'Yolanda',	'Paulack',	'GA'),
+(5,	'Van',	'Tarbath',	'MM'),
+(6,	'Adrianna',	'Bonafant',	'WA'),
+(7,	'Garey',	'Rubenov',	'TI'),
+(8,	'Constance',	'Colchett',	'XO'),
+(9,	'Stillman',	'Arrell',	'QG'),
+(10,	'Thorn',	'Surman-Wells',	'HR'),
+(11,	'Vanni',	'Carthew',	'BB'),
+(12,	'Thoma',	'Mawditt',	'WG'),
+(13,	'Kalil',	'Greville',	'PT'),
+(14,	'Mimi',	'Cleyne',	'UG'),
+(15,	'Aldridge',	'Tackes',	'FT'),
+(16,	'Holden',	'Thaxton',	'PH'),
+(17,	'Meredithe',	'Fantonetti',	'KJ'),
+(18,	'Domenic',	'Jouannin',	'KV'),
+(19,	'Caralie',	'Crunkhorn',	'CY'),
+(20,	'Jewell',	'Lanney',	'JQ');
+CREATE TABLE Leaders
+(
+TmLeaders       INT       Primary Key,
+PlayerID        INT        NOT NULL,
+Stats           INT        NOT NULL,
+TeamYR          DATE       NOT NULL,
+
+CONSTRAINT Leaders_fk_Team	
+	FOREIGN KEY(TeamYR)
+    REFERENCES Team (TeamYR),
+    
+CONSTRAINT Leaders_fk_Player	
+	FOREIGN KEY(PlayerID)
+    REFERENCES PlayerPool (PlayerID)
+);
+insert into Leaders (TmLeaders, PlayerID, Stats, TeamYR)
+values
+(1,	19,	0,	26,	2006),
+(2,	53,	32,	20,	1989),
+(3,	15,	25,	44,	2006),
+(4,	28,	38,	52,	1998),
+(5,	16, 53,	41,	1991),
+(6,	32,	60,	19,	2001),
+(7,	57,	59,	12,	1986),
+(8,	47,	41,	47,	1994),
+(9,	43,	36,	18,	2011),
+(10,31,	59,	80,	2003),
+(11	,57	,23,25,2011),
+(12	,47	,3	,15,1989),
+(13	,25	,31	,0,2006),
+(14	,33	,5	,23,1990),
+(15	,20	,57	,22,2003),
+(16	,0	,11	,29,1986),
+(17	,5	,14	,8,2009),
+(18	,59	,1	,20,2010),
+(19	,55	,60	,64,2012),
+(20	,43	,1	,49,1996);
